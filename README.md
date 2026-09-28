@@ -56,6 +56,7 @@ The container installs production dependencies and starts `server.js`. It listen
 | POST | `/appointments` | Validate and add a booking; rejects a duplicate slot |
 | GET | `/api/appointments` | Return the in-memory appointment list as JSON |
 | GET | `/health` | Return `{"status":"ok"}` for health checks |
+| GET | `/api/version` | Return the commit identifier reported by Render, or `local` |
 
 ## CI/CD pipeline
 
@@ -75,7 +76,7 @@ Git push / pull request
  Live /health verification
 ```
 
-The deployment job reads `RENDER_DEPLOY_HOOK` from GitHub Actions secrets. The verification job reads the public service address from the Actions variable `RENDER_SERVICE_URL`. Neither value belongs in source code. Lint, test, or image-build failure skips deployment because each later job depends on the previous one.
+The deployment job reads `RENDER_DEPLOY_HOOK` from GitHub Actions secrets and appends the passing workflow's commit SHA as Render's `ref` parameter. The verification job reads the public service address from the Actions variable `RENDER_SERVICE_URL` and confirms the running commit matches the commit that passed checks. Neither value belongs in source code. Lint, test, or image-build failure skips deployment because each later job depends on the previous one.
 
 ### Safe failure demonstration
 
@@ -107,4 +108,4 @@ Live service: **[add your Render service URL after deployment]**
 
 ## Commit ID in the footer
 
-On Render, the footer shows the value of `RENDER_GIT_COMMIT`. When running locally without that environment variable, it shows `local`.
+On Render, the footer and `/api/version` endpoint show the value of `RENDER_GIT_COMMIT`. When running locally without that environment variable, they show `local`.

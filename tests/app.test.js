@@ -40,6 +40,20 @@ describe("Cut & Co. booking app", () => {
         expect(response.body).toEqual([validAppointment]);
     });
 
+    it("exposes the running commit ID for deployment verification", async () => {
+        const previousCommit = process.env.RENDER_GIT_COMMIT;
+        process.env.RENDER_GIT_COMMIT = "abc123";
+
+        const response = await request(app).get("/api/version");
+
+        if (previousCommit === undefined) {
+            delete process.env.RENDER_GIT_COMMIT;
+        } else {
+            process.env.RENDER_GIT_COMMIT = previousCommit;
+        }
+        expect(response.body).toEqual({ commit: "abc123" });
+    });
+
     it("rejects missing or invalid appointment details", async () => {
         const response = await request(app).post("/appointments").type("form").send({
             ...validAppointment,
