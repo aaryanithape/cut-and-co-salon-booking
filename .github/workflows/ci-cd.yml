@@ -60,7 +60,7 @@ jobs:
       - name: Trigger Render deploy for this main branch commit
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
-        run: curl --fail --show-error --silent --request POST "$RENDER_DEPLOY_HOOK"
+        run: curl --fail --show-error --silent --request POST "${RENDER_DEPLOY_HOOK}&ref=${GITHUB_SHA}"
 
   verify:
     name: Verify live health endpoint

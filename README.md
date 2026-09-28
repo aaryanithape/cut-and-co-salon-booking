@@ -76,7 +76,7 @@ Git push / pull request
  Live /health verification
 ```
 
-The deployment job reads `RENDER_DEPLOY_HOOK` from GitHub Actions secrets. The verification job reads the public service address from the Actions variable `RENDER_SERVICE_URL` and confirms the running commit matches the commit that passed checks. Neither value belongs in source code. Lint, test, or image-build failure skips deployment because each later job depends on the previous one.
+The deployment job reads `RENDER_DEPLOY_HOOK` from GitHub Actions secrets and appends the passing workflow's commit SHA as Render's `ref` parameter. The verification job reads the public service address from the Actions variable `RENDER_SERVICE_URL` and confirms the running commit matches the commit that passed checks. Neither value belongs in source code. Lint, test, or image-build failure skips deployment because each later job depends on the previous one.
 
 ### Safe failure demonstration
 

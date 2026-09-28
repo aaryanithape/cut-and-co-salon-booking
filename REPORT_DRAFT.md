@@ -41,7 +41,7 @@ Git push / PR ──> Lint ──> Test ──> Docker build ──> Deploy (mai
 1. **Lint:** `npm run lint` checks JavaScript style and basic errors.
 2. **Test:** `npm test` runs the health, booking, validation, JSON API, duplicate-slot, and HTML escaping tests. Supertest uses the app in-process, so no separate server is required.
 3. **Docker build:** builds the production image only after lint and tests pass.
-4. **Deploy:** on a push to `main` only, posts to the Render Deploy Hook saved as the GitHub Actions secret `RENDER_DEPLOY_HOOK`.
+4. **Deploy:** on a push to `main` only, posts to the Render Deploy Hook saved as the GitHub Actions secret `RENDER_DEPLOY_HOOK`, with the passing workflow's SHA as the `ref` parameter.
 5. **Live verification:** checks the configured `RENDER_SERVICE_URL/health` endpoint after Render deploys.
 
 **Screenshots:** [Add genuine Actions screenshots showing lint, test, build, deploy, and verification.]
@@ -64,4 +64,3 @@ On a temporary feature branch, deliberately change the expected health response 
 - Public GitHub repository: [Add repository URL]
 - Live Render service: [Add URL after deployment]
 - GitHub Actions page: [Add repository Actions URL]
-
