@@ -78,6 +78,10 @@ app.get("/api/appointments", (req, res) => {
     res.json(appointments);
 });
 
+app.get("/api/version", (req, res) => {
+    res.json({ commit: process.env.RENDER_GIT_COMMIT || "local" });
+});
+
 app.post("/appointments", (req, res) => {
     const name = typeof req.body.name === "string" ? req.body.name.trim() : "";
     const phone = typeof req.body.phone === "string" ? req.body.phone.trim() : "";

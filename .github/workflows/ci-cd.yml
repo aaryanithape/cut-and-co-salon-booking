@@ -71,14 +71,16 @@ jobs:
       - name: Check Render health endpoint
         env:
           RENDER_SERVICE_URL: ${{ vars.RENDER_SERVICE_URL }}
+          EXPECTED_COMMIT: ${{ github.sha }}
         run: |
           if [ -z "$RENDER_SERVICE_URL" ]; then
             echo "Set the RENDER_SERVICE_URL Actions variable to the Render service URL."
             exit 1
           fi
           for attempt in $(seq 1 18); do
-            if curl --fail --silent "$RENDER_SERVICE_URL/health" | grep -q '"status":"ok"'; then
-              echo "Render health check passed."
+            if curl --fail --silent "$RENDER_SERVICE_URL/health" | grep -q '"status":"ok"' \
+              && curl --fail --silent "$RENDER_SERVICE_URL/api/version" | grep -Fq "$EXPECTED_COMMIT"; then
+              echo "Render health and deployed commit checks passed."
               exit 0
             fi
             echo "Waiting for Render to finish deploying (attempt $attempt/18)..."
