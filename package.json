@@ -1,0 +1,23 @@
+{
+  "name": "cut-and-co-salon-booking",
+  "version": "1.0.0",
+  "description": "A simple, server-rendered salon appointment booking app.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --runInBand",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.11.0",
+    "jest": "^30.5.2",
+    "supertest": "^7.3.0"
+  }
+}
