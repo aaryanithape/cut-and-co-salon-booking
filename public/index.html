@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f1e9">
+    <title>Cut &amp; Co. — Salon appointments</title>
+    <style>
+        :root { color-scheme: light; --ink: #20251f; --muted: #73796e; --paper: #f5f1e9; --card: #fffefa; --green: #294a3c; --line: #e6e2d9; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; max-width: 1120px; margin: auto; padding: 24px 28px; }
+        .brand { font-family: Georgia, serif; font-size: 1.45rem; font-weight: 700; letter-spacing: -.04em; }
+        .brand span { color: var(--green); }
+        .top-note { color: var(--muted); font-size: .87rem; }
+        main { max-width: 1120px; margin: 22px auto 70px; padding: 0 28px; }
+        .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: end; padding: 36px 0 48px; }
+        .eyebrow { color: var(--green); font-size: .76rem; letter-spacing: .15em; font-weight: 750; text-transform: uppercase; }
+        h1 { max-width: 590px; margin: 14px 0; font: 500 clamp(2.8rem, 6vw, 5rem)/.99 Georgia, serif; letter-spacing: -.06em; }
+        .hero-copy { max-width: 460px; color: #646a61; font-size: 1.04rem; line-height: 1.7; }
+        .hero-aside { padding: 20px 24px; border-left: 1px solid #c9c7bc; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+        .hero-aside strong { display: block; color: var(--ink); font: 1.2rem Georgia, serif; }
+        .columns { display: grid; grid-template-columns: .9fr 1.1fr; gap: 22px; align-items: start; }
+        .card { padding: 30px; background: var(--card); border: 1px solid rgba(32,37,31,.07); border-radius: 14px; box-shadow: 0 12px 35px rgba(44, 47, 38, .045); }
+        .card-heading { margin: 0; font: 1.75rem Georgia, serif; letter-spacing: -.035em; }
+        .card-intro { margin: 8px 0 25px; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+        .field { margin-top: 16px; }
+        label { display: block; margin-bottom: 7px; font-size: .82rem; font-weight: 650; }
+        input, select { width: 100%; min-height: 46px; padding: 11px 13px; border: 1px solid #deded5; border-radius: 7px; background: #fff; color: var(--ink); font: inherit; font-size: .92rem; }
+        input:focus, select:focus { outline: 2px solid #98ad9e; outline-offset: 1px; border-color: var(--green); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+        .submit { width: 100%; min-height: 49px; margin-top: 23px; padding: 12px 16px; border: 0; border-radius: 7px; background: var(--green); color: white; font: inherit; font-weight: 700; cursor: pointer; }
+        .submit:hover { background: #203d31; }
+        .appointment-list { display: grid; gap: 10px; margin-top: 21px; }
+        .appointment { padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+        .appointment__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .appointment__top strong { font-size: .96rem; }
+        .appointment__top span { color: var(--green); font-size: .78rem; font-weight: 650; }
+        .appointment p { margin: 10px 0 0; color: #555d53; font-size: .87rem; }
+        .appointment p.appointment__phone { color: var(--muted); font-size: .8rem; }
+        .empty-state { margin: 0; padding: 24px; border: 1px dashed #d5d4ca; border-radius: 9px; color: var(--muted); font-size: .9rem; line-height: 1.6; text-align: center; }
+        footer { display: flex; justify-content: space-between; gap: 16px; max-width: 1120px; margin: auto; padding: 22px 28px 30px; border-top: 1px solid #dedbd2; color: var(--muted); font-size: .78rem; }
+        @media (max-width: 760px) { .hero, .columns { grid-template-columns: 1fr; gap: 18px; } .hero { padding-top: 20px; } .hero-aside { max-width: 500px; } main { margin-top: 10px; } }
+        @media (max-width: 480px) { .topbar, main, footer { padding-left: 18px; padding-right: 18px; } .top-note { max-width: 145px; text-align: right; } .card { padding: 22px 18px; } .form-grid { grid-template-columns: 1fr; } footer { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">cut <span>&amp;</span> co.</div>
+        <div class="top-note">Good hair days start here</div>
+    </header>
+    <main>
+        <section class="hero" aria-labelledby="welcome-title">
+            <div>
+                <div class="eyebrow">Your neighbourhood salon</div>
+                <h1 id="welcome-title">A fresh cut, on your time.</h1>
+                <p class="hero-copy">Book a little time for yourself. Choose your service and a slot that works, and we’ll take care of the rest.</p>
+            </div>
+            <aside class="hero-aside"><strong>Easy booking. Better mornings.</strong>Pick your appointment below and see the day’s bookings at a glance.</aside>
+        </section>
+        <div class="columns">
+            <section class="card" aria-labelledby="booking-title">
+                <h2 class="card-heading" id="booking-title">Book a visit</h2>
+                <p class="card-intro">A few details and you’re all set.</p>
+                <form method="post" action="/appointments">
+                    <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" minlength="2" maxlength="60" autocomplete="name" placeholder="e.g. Alex Morgan" required></div>
+                    <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. +91 98765 43210" required></div>
+                    <div class="field"><label for="service">Choose a service</label><select id="service" name="service" required><option value="">Select a service</option><option>Haircut</option><option>Haircut + Beard</option><option>Beard Trim</option></select></div>
+                    <div class="form-grid">
+                        <div class="field"><label for="date">Date</label><input id="date" name="date" type="date" required></div>
+                        <div class="field"><label for="time">Time</label><select id="time" name="time" required><option value="">Choose a time</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option></select></div>
+                    </div>
+                    <button class="submit" type="submit">Book appointment <span aria-hidden="true">→</span></button>
+                </form>
+            </section>
+            <section class="card" aria-labelledby="appointments-title">
+                <h2 class="card-heading" id="appointments-title">On the books</h2>
+                <p class="card-intro">Upcoming appointments, all in one place.</p>
+                <div class="appointment-list">{{APPOINTMENTS}}</div>
+            </section>
+        </div>
+    </main>
+    <footer><span>Cut &amp; Co. <span aria-hidden="true">·</span> Made for a better hair day.</span><span>Running commit: <code>{{COMMIT_ID}}</code></span></footer>
+</body>
+</html>
